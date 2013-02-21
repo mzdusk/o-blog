@@ -638,7 +638,8 @@ See also `ob-set-default-filepath', `ob-parse-entry'."
       (when page
 	(setq htmlfile page
 	      filename (file-name-sans-extension (file-name-nondirectory htmlfile))
-	      filepath (file-name-directory htmlfile)))
+	      filepath (when (file-name-directory htmlfile)
+                         (directory-file-name (file-name-directory htmlfile)))))
 
       (let ((content (ob-get-entry-text)))
 	(make-ob:post :title title

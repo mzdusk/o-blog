@@ -5,9 +5,9 @@
  ;; Static page or post
  ((boundp 'POST)
   (let ((path (when (ob:post-filepath POST)
-		(cdr (split-string (ob:post-filepath POST) "/")))))
+		(split-string (ob:post-filepath POST) "/"))))
 
-    (loop for p in (if (ob:greater (length path) 1) (cons (ob:post-category POST) path) path)
+    (loop for p in (if (ob:greater (length path) 0) (cons (ob:post-category POST) (cdr path)) (cdr path))
 	  with prev = (ob:path-to-root)
 	  do (progn
 	       (setf prev (format "%s/%s" prev (if (ob:category-p p) (ob:category-safe p) p)))
